@@ -431,6 +431,10 @@ Bad option to --compiletype '$compiletype_opt' Should be 'release, debug'
   exit 1
 fi
 
+echo "
+`uname -r` kernel detected.
+Using C++ compiler: $CXX"
+
 if [ "x$compiletype_opt" = "xrelease" ]; then
   echo "Using compile type: release
 "
