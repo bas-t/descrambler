@@ -144,6 +144,23 @@ Aborting...
   exit 1
 fi
 
+# Check for installed binary
+if [ -f /usr/bin/ffdecsawrapper ]; then
+  echo "
+/usr/bin/ffdecsawrapper exists.
+
+Do you want to recompile it?
+
+"
+  confirmno "Recompile ffdecsawrapper binary [N/y]"
+  if [ "$?" -eq 1 ]; then
+    echo "
+Nothing to do. Aborting...
+"
+    exit 0
+  fi
+fi
+
 # Check git status
 if [ "x$update_opt" = "xyes" ]; then
   git clean -xfd > /dev/null
