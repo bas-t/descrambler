@@ -422,6 +422,7 @@ echo "CC=$CC" >> config.mak
 
 # Compile and, if running Debian/Ubuntu
 # finish by installing ffdecsawrapper
+sleep 5
 make
 
 if ! [ "$?" -eq 0 ]; then
