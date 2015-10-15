@@ -80,8 +80,10 @@ show_help(){
   echo "                        Option disables --optimize option"
   echo "                        "
   echo " --optimize=<opt>       [yes] Perform FFDecsa optimization auto-detection"
-  echo "                        for all mmx and sse types optimizations"
-  echo "                        with both -O2 and -O3 levels"
+  echo "                        for all mmx and sse types optimizations,"
+  echo "                        with -O2 and -O3 optimization levels"
+  echo "                        O2: same, but only test with -O2"
+  echo "                        O3: same, but only test with -O3"
   echo "                        long: Try all known optimizations"
   echo "                        no: use default optimization (-O3 PARALLEL_128_SSE2)"
   echo "                        Option is disabled by --ffdecsa_mode option"
@@ -367,6 +369,16 @@ if [ "x$ffdecsa_flags" = "x" ]; then
       if ! [ "$?" -eq 0 ]; then
         optimizer
       fi
+    elif [ "x$optimize_opt" = "xO2" ]; then
+     ./FFdecsa_optimizer -O 2
+      if ! [ "$?" -eq 0 ]; then
+        optimizer
+      fi
+    elif [ "x$optimize_opt" = "xO3" ]; then
+     ./FFdecsa_optimizer -O 3
+      if ! [ "$?" -eq 0 ]; then
+        optimizer
+      fi
     elif [ "x$optimize_opt" = "xdefined" ]; then
      ./FFdecsa_optimizer -P $MAX_MODE
       if ! [ "$?" -eq 0 ]; then
@@ -380,7 +392,7 @@ Bad option to --optimize '$optimize_opt'.  Should be 'yes, long, no'
       exit 1
     fi
   else
-    echo "FFDECSA_OPTS = \"FLAGS=-O3 -march=native -fexpensive-optimizations -fomit-frame-pointer -funroll-loops\" PARALLEL_MODE=PARALLEL_128_SSE2 COMPILER=g++" >> config.mak
+    echo "FFDECSA_OPTS = \"FLAGS=-O3 -march=native -fno-stack-check -fPIC -fexpensive-optimizations -fomit-frame-pointer -funroll-loops\" PARALLEL_MODE=PARALLEL_128_SSE2 COMPILER=g++" >> config.mak
     echo "
 Using default optimization:
 -O3 PARALLEL_128_SSE2
@@ -402,7 +414,6 @@ Bad option to --compiletype '$compiletype_opt' Should be 'release, debug'
 fi
 
 echo "
-`uname -r` kernel detected.
 Using C++ compiler: $CXX"
 
 if [ "x$compiletype_opt" = "xrelease" ]; then
@@ -416,9 +427,9 @@ fi
 
 # Set wrapper compiler options
 if [ "x$compiletype_opt" = "xrelease" ]; then
-  echo "SC_FLAGS = \"-O2 -fPIC -Wall -Woverloaded-virtual -fno-strict-aliasing\"" >> config.mak
+  echo "SC_FLAGS = \"-O2 -fno-stack-check -fPIC -Wall -Woverloaded-virtual -fno-strict-aliasing\"" >> config.mak
 elif [ "x$compiletype_opt" = "xdebug" ]; then
-  echo "SC_FLAGS = \"-O2 -g -fPIC -Wall -Woverloaded-virtual -fno-strict-aliasing\"" >> config.mak
+  echo "SC_FLAGS = \"-O2 -g -fno-stack-check -fPIC -Wall -Woverloaded-virtual -fno-strict-aliasing\"" >> config.mak
 fi
 
 echo "CXX=$CXX" >> config.mak
