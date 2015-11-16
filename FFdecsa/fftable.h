@@ -43,7 +43,8 @@ void static inline FFTABLEOUT(unsigned char *data, unsigned char *tab, int g)
 
 void static inline FFTABLEOUTXORNBY(int n, unsigned char *data, unsigned char *tab, int g)
 {
-  for(int j=0;j<n;j++) *(data+j)^=*(tab+8*g+j);
+  int j;
+  for(j=0;j<n;j++) *(data+j)^=*(tab+8*g+j);
 }
 
 #undef XOREQ_BEST_BY
