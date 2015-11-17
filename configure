@@ -262,6 +262,24 @@ if [ -f /usr/bin/lsb_release ]; then
   RELEASE=$( lsb_release -sc )
 fi
 
+# Check for installed binary
+if [ -f /usr/bin/ffdecsawrapper ]; then
+  echo "
+/usr/bin/ffdecsawrapper exists.
+
+Do you want to recompile it?
+
+"
+  confirmno "Recompile ffdecsawrapper binary [N/y]"
+  if ! [ "$?" -eq 0 ]; then
+    echo "
+Nothing to do. Aborting...
+"
+    exit 0
+  fi
+fi
+
+
 if [ "$OS" = Debian -o "$OS" = Ubuntu ] ; then
 
 # Make sure that we are running as root
@@ -275,23 +293,6 @@ Aborting...
 
 "
     exit 0
-  fi
-
-# Check for installed binary
-  if [ -f /usr/bin/ffdecsawrapper ]; then
-    echo "
-/usr/bin/ffdecsawrapper exists.
-
-Do you want to recompile it?
-
-"
-    confirmno "Recompile ffdecsawrapper binary [N/y]"
-    if ! [ "$?" -eq 0 ]; then
-      echo "
-Nothing to do. Aborting...
-"
-      exit 0
-    fi
   fi
 
 # Install build dependencies for FFdecsawrapper
