@@ -453,12 +453,11 @@ Error(s) encountered while compiling ffdecsawrapper
 "
   exit 1
 else
-  if [ "$OS" = Debian -o "$OS" = Ubuntu ] ; then
-    if [ -f /usr/bin/ffdecsawrapper ]; then
-      rm -f /usr/bin/ffdecsawrapper
-    fi
-    cp -f ffdecsawrapper /usr/bin
-    echo -en "
+  if [ -f /usr/bin/ffdecsawrapper ]; then
+    rm -f /usr/bin/ffdecsawrapper
+  fi
+  cp -f ffdecsawrapper /usr/bin
+  echo -en "
 \E[1;33;44m
 ####################################
 
@@ -468,5 +467,4 @@ Installed ffdecsawrapper to /usr/bin
 \E[0m
 
 "
-  fi
 fi
