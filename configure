@@ -279,12 +279,9 @@ Nothing to do. Aborting...
   fi
 fi
 
-
-if [ "$OS" = Debian -o "$OS" = Ubuntu ] ; then
-
 # Make sure that we are running as root
-  if ! echo "$(whoami)" | grep "root" > /dev/null 2>&1; then
-    echo -en "
+if ! echo "$(whoami)" | grep "root" > /dev/null 2>&1; then
+  echo -en "
 \E[1;33;44m
 You should run as root.
 
@@ -292,8 +289,11 @@ Aborting...
 \E[0m
 
 "
-    exit 0
-  fi
+  exit 0
+fi
+
+
+if [ "$OS" = Debian -o "$OS" = Ubuntu ] ; then
 
 # Install build dependencies for FFdecsawrapper
   if ! dpkg-query -l gettext | grep "ii" > /dev/null 2>&1; then
@@ -436,8 +436,7 @@ fi
 echo "CXX=$CXX" >> config.mak
 echo "CC=$CC" >> config.mak
 
-# Compile and, if running Debian/Ubuntu
-# finish by installing ffdecsawrapper
+# Compile and finish by installing ffdecsawrapper
 sleep 5
 make
 
