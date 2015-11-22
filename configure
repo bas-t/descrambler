@@ -387,7 +387,7 @@ if [ "x$ffdecsa_flags" = "x" ]; then
       fi
     elif [ "x$optimize_opt" != "xno" ]; then
       echo "
-Bad option to --optimize '$optimize_opt'.  Should be 'yes, long, no'
+Bad option to --optimize '$optimize_opt'.  Should be 'yes, long, no, O2 or O3'
 
 "
       exit 1
