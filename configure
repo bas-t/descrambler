@@ -79,13 +79,13 @@ show_help(){
   echo "                        Use like  --ffdecsa_mode=PARALLEL_128_SSE"
   echo "                        Option disables --optimize option"
   echo "                        "
-  echo " --optimize=<opt>       [yes] Perform FFDecsa optimization auto-detection"
+  echo " --optimize=<opt>       [O2] Perform FFDecsa optimization auto-detection"
   echo "                        for all mmx and sse types optimizations,"
-  echo "                        with -O2 and -O3 optimization levels"
-  echo "                        O2: same, but only test with -O2"
+  echo "                        with -O2 optimization levels"
   echo "                        O3: same, but only test with -O3"
+  echo "                        both: Do O2 plus O3"
   echo "                        long: Try all known optimizations"
-  echo "                        no: use default optimization (-O3 PARALLEL_128_SSE2)"
+  echo "                        no: use default optimization (-O2 PARALLEL_128_SSE2)"
   echo "                        Option is disabled by --ffdecsa_mode option"
   echo "                        "
   echo " --cxx=<opt>            [g++] Define C++ and CC version to use"
@@ -98,7 +98,7 @@ show_help(){
 
 compiletype_opt="release"
 update_opt="yes"
-optimize_opt="yes"
+optimize_opt="O2"
 ffdecsa_opt="yes"
 
 for opt do
@@ -360,7 +360,7 @@ if [ "x$ffdecsa_flags" = "x" ]; then
   if [ "x$ffdecsa_opt" = "xyes" ]; then
     CCC=$CXX
     export CCC
-    if [ "x$optimize_opt" = "xyes" ]; then
+    if [ "x$optimize_opt" = "xboth" ]; then
      ./FFdecsa_optimizer
       if ! [ "$?" -eq 0 ]; then
         optimizer
@@ -387,16 +387,16 @@ if [ "x$ffdecsa_flags" = "x" ]; then
       fi
     elif [ "x$optimize_opt" != "xno" ]; then
       echo "
-Bad option to --optimize '$optimize_opt'.  Should be 'yes, long, no, O2 or O3'
+Bad option to --optimize '$optimize_opt'.  Should be 'both, long, no, O2 or O3'
 
 "
       exit 1
     fi
   else
-    echo "FFDECSA_OPTS = \"FLAGS=-O3 -march=native -fno-stack-check -fPIC -fexpensive-optimizations -fomit-frame-pointer -funroll-loops\" PARALLEL_MODE=PARALLEL_128_SSE2 COMPILER=g++" >> config.mak
+    echo "FFDECSA_OPTS = \"FLAGS=-O2 -march=native -fno-stack-check -fPIC -fexpensive-optimizations -fomit-frame-pointer -funroll-loops\" PARALLEL_MODE=PARALLEL_128_SSE2 COMPILER=g++" >> config.mak
     echo "
 Using default optimization:
--O3 PARALLEL_128_SSE2
+-O2 PARALLEL_128_SSE2
 "
   fi
 fi
