@@ -9,7 +9,7 @@ CXXFLAGS ?= -Wall -D__user=
 DEFINES += -DRELEASE_VERSION=\"$(VERSION)\" -D__KERNEL_STRICT_NAMES
 LBDIR = src
 TOOL = ffdecsawrapper
-LIBS = -lpthread -lcrypto -lcrypt -lv4l1
+LIBS = -lcrypto -lcrypt -lv4l1 -lpthread
 SCDIR = sc/PLUGINS/src
 SCLIBS = -Wl,-whole-archive ./sc/PLUGINS/lib/libsc-*.a -Wl,-no-whole-archive \
 	./sc/PLUGINS/lib/libffdecsawrapper-sc.a

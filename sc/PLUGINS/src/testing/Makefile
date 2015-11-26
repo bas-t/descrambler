@@ -30,7 +30,7 @@ DEFINES += -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
 
 OBJS = misc.o log.o override.o data.o crypto.o parse.o system.o system-common.o smartcard.o network.o filter.o version.o
 SHAREDOBJS = compat.o $(BASEDIR)/tools.o $(BASEDIR)/thread.o
-LIBS = -lpthread -lrt -ljpeg -lcrypto
+LIBS = -lrt -ljpeg -lcrypto -lpthread
 DYNLIBS = -ldl $(BASEDIR)/libsi/libsi.a
 
 NOBJS  = $(patsubst %.o,../%.o,$(OBJS))
