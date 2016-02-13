@@ -84,7 +84,7 @@ void * msg_loop(void * arg)
     struct timespec ts = {0, 0};
     ts.tv_sec = time(NULL) + 60*60; //1 hour
     while(1) { //iterate over all elements in queue
-      struct msg *msg;
+      struct msg *msg = NULL;
       time_t now = time(NULL);
       int orig_type;
 
