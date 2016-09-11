@@ -93,6 +93,8 @@ show_help(){
   echo "                        "
   echo " --update=<opt>         [yes] no: don't clean local clone and"
   echo "                        don't pull in any updates."
+  echo " --replace=<opt>        [no] yes: recompile the binary and replace the old one"
+  echo "                        "
   exit 0
 }
 
@@ -100,6 +102,7 @@ compiletype_opt="release"
 update_opt="yes"
 optimize_opt="yes"
 ffdecsa_opt="yes"
+replace_opt="no"
 
 for opt do
   optval="${opt#*=}"
@@ -117,6 +120,8 @@ for opt do
   --optimize=*) optimize_opt="$optval"
   ;;
   --ffdecsa_mode=*) optimize_opt="defined"; MAX_MODE="$optval"
+  ;;
+  --replace=*) replace_opt="$optval"
   ;;
   --help) show_help
   ;;
@@ -264,18 +269,20 @@ fi
 
 # Check for installed binary
 if [ -f /usr/bin/ffdecsawrapper ]; then
-  echo "
+  if [ "x$replace_opt" = "xno" ]; then
+    echo "
 /usr/bin/ffdecsawrapper exists.
 
 Do you want to recompile it?
 
 "
-  confirmno "Recompile ffdecsawrapper binary [N/y]"
-  if ! [ "$?" -eq 0 ]; then
-    echo "
+    confirmno "Recompile ffdecsawrapper binary [N/y]"
+      if ! [ "$?" -eq 0 ]; then
+        echo "
 Nothing to do. Aborting...
 "
-    exit 0
+      exit 0
+    fi
   fi
 fi
 
