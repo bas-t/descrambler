@@ -300,7 +300,7 @@ Aborting...
 fi
 
 
-if [ "$OS" = Debian -o "$OS" = Ubuntu ] ; then
+if [ "$OS" = "Debian" -o "$OS" = "Ubuntu" -o "$OS" = "Devuan" ] ; then
 
 # Install build dependencies for FFdecsawrapper
   if ! dpkg-query -l gettext | grep "ii" > /dev/null 2>&1; then
