@@ -597,6 +597,8 @@ static int start(char *dmxdev, struct sid_data *sid_data, int timeout) {
           struct filter *filt;
           dprintf3("Read %d bytes\n", size);
           ll_find_elem(filt, pat.dmx_filter_ll, fd, pollfd[i].fd, struct filter);
+          if (!filt)
+            goto exit;
           int ret = read_pmt(pes, filt, sid_data, size);
           if(ret < 0) {
              filt->parse_err++;
