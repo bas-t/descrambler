@@ -934,7 +934,8 @@ int c6805::Run(int max_count)
         break;
       case 0x27: // BEQ
         if(vbra) branch(cc.v);
-        else branch( cc.z); break;
+        else branch( cc.z);
+        break;
       case 0x28: // BHCC
         branch(!cc.h); break;
       case 0x29: // BHCS
