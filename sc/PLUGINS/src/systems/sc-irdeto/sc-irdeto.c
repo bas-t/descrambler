@@ -316,7 +316,7 @@ bool cSmartCardDataIrdeto::Parse(const char *line)
       line=skipspace(line);
       }
 
-    if(!*line==']') {
+    if(!(*line==']')) {
       PRINTF(L_CORE_LOAD,"smartcarddatairdeto: format error: closing ]");
       return false;
       }
