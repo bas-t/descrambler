@@ -61,7 +61,7 @@ struct sid_data {
   int has_map;
   int removed_sid;
   int sendmsg;
-  unsigned char tunecache[256]; //Should be large enough
+  unsigned char tunecache[512]; //Should be large enough
   pthread_t thread;
   pthread_mutex_t mutex;
   pthread_cond_t cond;
