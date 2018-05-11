@@ -302,6 +302,11 @@ fi
 
 if [ "$OS" = "Debian" -o "$OS" = "Ubuntu" -o "$OS" = "Devuan" ] ; then
 
+# Fix disapearing headers declarations in newer kernels
+if ! cat /usr/include/linux/dvb/dmx.h | grep DMX_KERNEL_CLIENT > /dev/null 2>&1; then
+  patch -d/ -p0 < ../dmx.patch
+fi
+
 # Install build dependencies for FFdecsawrapper
   if ! dpkg-query -l gettext | grep "ii" > /dev/null 2>&1; then
     echo "
@@ -371,7 +376,6 @@ fi
 #
 # End Debian Section
 #
-
 
 # Set compiler version,
 # if not done allready
