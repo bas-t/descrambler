@@ -336,34 +336,6 @@ Missing dependency libssl-dev, marking for installation.
 "
     apt-get install libssl-dev -y || die "Error installing dependency libssl-dev"
   fi
-  if ! dpkg-query -l libpcsclite-dev | grep "ii" > /dev/null 2>&1; then
-    echo "
-Missing dependency libpcsclite-dev, marking for installation.
-
-"
-    apt-get install libpcsclite-dev -y || die "Error installing dependency libpcsclite-dev"
-  fi
-  if ! dpkg-query -l libccid | grep "ii" > /dev/null 2>&1; then
-    echo "
-Missing dependency libccid, marking for installation.
-
-"
-    apt-get install libccid -y || die "Error installing dependency libccid"
-  fi
-  if ! dpkg-query -l pcscd | grep "ii" > /dev/null 2>&1; then
-    echo "
-Missing dependency pcscd, marking for installation.
-
-"
-    apt-get install pcscd -y || die "Error installing dependency pcscd"
-  fi
-  if ! dpkg-query -l pcsc-tools | grep "ii" > /dev/null 2>&1; then
-    echo "
-Missing dependency pcsc-tools, marking for installation.
-
-"
-    apt-get install pcsc-tools -y || die "Error installing dependency pcsc-tools"
-  fi
   if ! dpkg-query -l build-essential | grep "ii" > /dev/null 2>&1; then
     echo "
 Missing dependency build-essential, marking for installation.

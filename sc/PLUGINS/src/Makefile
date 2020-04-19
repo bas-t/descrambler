@@ -37,8 +37,6 @@ DEFINES       = -DPLUGIN_NAME='"$(PLUGIN)"'
 SHAREDDEFINES = -DAPIVERSNUM=$(APIVERSNUM) -D_GNU_SOURCE
 LIBS          = -lcrypto
 SHAREDLIBS    =
-WITH_PCSC = 1
-INCLUDES += -I/usr/include/PCSC
 
 ### The version number of FFdecsawrapper (taken from FFdecsawrapper's "config.h"):
 
@@ -60,11 +58,6 @@ OBJS = $(PLUGIN).o data.o filter.o system.o misc.o cam.o device.o version.o \
        override.o
 
   SHAREDDEFINES += -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE
-
-ifdef WITH_PCSC
-  DEFINES  += -DWITH_PCSC
-  LIBS     += -lpcsclite
-endif
 
 # max number of CAIDs per slot
 MAXCAID = 64
